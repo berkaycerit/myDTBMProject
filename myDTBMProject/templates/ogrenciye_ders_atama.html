@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Öğrenciye Ders Atama</title>
+</head>
+<body>
+    <nav>
+        <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link " id="nav-home-tab" data-toggle="tab" href="{% url 'index' %}" role="tab" aria-controls="nav-home" aria-selected="false">Ana Sayfa</a>
+          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="{% url 'lessons' %}" role="tab" aria-controls="nav-profile" aria-selected="true">Dersler</a>
+          <a class="nav-item nav-link active" id="nav-contact-tab" data-toggle="tab" href="{% url 'students' %}" role="tab" aria-controls="nav-students" aria-selected="false">Öğrenciler</a>
+        </div>
+    </nav>
+    <h2>Öğrenciye Ders Atama</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+                
+            <button type="submit" class = "btn btn-info" >Ders Ata</button>
+        </form>
+</body>
+</html>

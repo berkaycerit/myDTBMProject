@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğrenci Detay</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <nav>
+        <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link " id="nav-home-tab" data-toggle="tab" href="{% url 'index' %}" role="tab" aria-controls="nav-home" aria-selected="false">Ana Sayfa</a>
+          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="{% url 'lessons' %}" role="tab" aria-controls="nav-profile" aria-selected="true">Dersler</a>
+          <a class="nav-item nav-link active" id="nav-contact-tab" data-toggle="tab" href="{% url 'students' %}" role="tab" aria-controls="nav-students" aria-selected="false">Öğrenciler</a>
+        </div>
+      </nav>
+    <div class="student-profile py-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card shadow-sm">
+                                <div class="card-header bg-transparent text-center">
+                                    <img class="img-fluid rounded-circle" src="https://source.unsplash.com/random/200x200?sig=1" alt="profile_img" class="rounded-circle">
+                                    <h3>{{ ad }} {{ soyad }}</h3>
+                                </div>
+                                <div class="card-body">
+                                    <p class="mb-0"><strong class="pr-1">Öğrenci No:</strong>{{ numara }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="card shadow-sm">
+                                <div class="card-header bg-transparent border-0">
+                                    <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Genel Bilgi</h3>
+                                </div>
+                                <div class="card-body pt-0">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th width="30%">Cinsiyet</th>
+                                            <td width="2%">:</td>
+                                            <td>{{ cinsiyet }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th width="30%">Ders Sayısı</th>
+                                            <td width="2%">:</td>
+                                            <td>{{ ders_sayisi }}</td>
+                                        </tr>
+                                            <th width="30%">Sınıf</th>
+                                            <td width="2%">:</td>
+                                            <td>{{ sinif }}</td>
+                                        </tr>
+                                            <th width="30%">Bölüm</th>
+                                            <td width="2%">:</td>
+                                            <td>{{ bolum }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 ">
+                            <div class="card shadow-sm">
+                                <div class="card-header bg-transparent border-0">
+                                    <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Aldığı dersler</h3>
+                                </div>
+                                <div class="card-body pt-0">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th width="30%">Ders Kodu</th>
+                                                <th width="30%">Ders Adı</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for kayit in kayitlar %}
+                                                <tr>
+                                                    <td>{{ kayit.ders.DersKodu }}</td>
+                                                    <td>{{ kayit.ders.DersAdi }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <a href="{% url 'students' %}"><button type="button" class="btn btn-primary"> Listeye Geri Dön </button></a>
+    <a href="{% url 'student_update' pk=ogrenci.id %}"> <button type="button" class="btn btn-info"> Öğrenciyi Güncelle </button> </a>
+    <a href="{% url 'ogrenciye_ders_atama' ogrenci.id %}" class="btn btn-info">Ders Ata</a>
+    <br>
+    <br>
+    <form method="post" action="{% url 'ogrenci_delete' ogrenci.id %}">
+        {% csrf_token %}
+        <button type="submit" class = "btn btn-outline-danger "onclick="return confirm('Bu öğrenciyi silmek istediğinizden emin misiniz?')">Sil</button>
+
+
+    </form>
+   
+</body>
+</html>
